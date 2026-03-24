@@ -1,135 +1,191 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>For Dipper Le - Quang Huy 💝</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    .runaway {
-      position: relative;
-    }
-
-    .typing-cursor {
-      display: inline-block;
-      animation: blink 0.8s infinite;
-    }
-
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
-    }
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #2a003f 0%, #5b0f73 50%, #ffb6e6 100%);
-      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 24px;
+      background: linear-gradient(180deg, #2d004d 0%, #5b1583 52%, #e5a5d5 100%);
+      color: #ffe8fb;
+      font-family: 'Press Start 2P', cursive;
+      overflow-x: hidden;
+    }
+
+    .ghosts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.18;
+    }
+
+    .ghost {
+      position: absolute;
+      width: 110px;
+      animation: floaty 8s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px rgba(255, 120, 220, 0.45));
+    }
+
+    .ghost.one { top: 8%; left: 6%; }
+    .ghost.two { bottom: 12%; right: 8%; animation-delay: 1.5s; }
+
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-18px); }
     }
 
     .card {
-      width: 700px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 3px solid #ff8de1;
-      border-radius: 25px;
-      padding: 25px;
-      text-align: center;
-      backdrop-filter: blur(10px);
-    }
-
-    h1 {
-      font-size: 42px;
-      color: #ff8de1;
-      margin-bottom: 10px;
-    }
-
-    .subtitle {
-      font-size: 18px;
-      margin-bottom: 20px;
+      width: min(860px, 100%);
+      background: rgba(73, 21, 105, 0.72);
+      border: 4px solid #f08ad9;
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 0 28px rgba(240, 138, 217, 0.28);
+      backdrop-filter: blur(8px);
     }
 
     .screen { display: none; }
     .screen.active { display: block; }
 
-    .question {
-      font-size: 26px;
+    h1 {
+      margin: 0 0 20px;
+      font-size: 34px;
+      line-height: 1.4;
+      color: #ff9eea;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(255, 158, 234, 0.4);
+    }
+
+    .subtitle {
+      font-size: 14px;
+      line-height: 1.9;
+      text-align: center;
+      color: #ffd9f5;
       margin-bottom: 20px;
-      color: #ffb6ff;
+    }
+
+    .photo {
+      display: block;
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 24px;
+      border: 4px solid #f6a0de;
+      margin: 0 auto 18px;
+      box-shadow: 0 0 22px rgba(246, 160, 222, 0.35);
+    }
+
+    .gengar {
+      display: block;
+      width: 130px;
+      margin: 0 auto 18px;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 0 12px rgba(255, 105, 220, 0.55));
+    }
+
+    .question {
+      font-size: 18px;
+      line-height: 1.8;
+      text-align: center;
+      color: #ffd7f7;
+      margin: 12px 0 22px;
     }
 
     .answers {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      position: relative;
+      min-height: 150px;
     }
 
     button {
-      padding: 12px;
-      font-size: 16px;
-      border-radius: 12px;
       border: none;
+      border-radius: 18px;
+      padding: 16px 12px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 12px;
+      line-height: 1.6;
       cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(255, 125, 214, 0.28);
     }
 
     .primary {
-      background: #ff4fd8;
-      color: white;
+      background: #ff78cf;
+      color: #4a005d;
     }
 
     .secondary {
-      background: #3a0052;
-      color: #ffb6ff;
-      border: 2px solid #ff8de1;
+      background: #6e2e87;
+      color: #ffe7fa;
+      border: 2px solid #f4a0e1;
+    }
+
+    .start-btn,
+    .yes-btn {
+      display: block;
+      margin: 18px auto 0;
+      width: min(320px, 100%);
     }
 
     .letter-wrap {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 18px;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 20px;
       align-items: start;
-      margin-top: 20px;
+      margin-top: 18px;
     }
 
     .message {
-      margin-top: 20px;
-      font-size: 18px;
-      line-height: 1.6;
-      background: rgba(255,255,255,0.1);
-      padding: 20px;
-      border-radius: 15px;
-      white-space: pre-line;
+      min-height: 360px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 3px solid rgba(248, 160, 225, 0.35);
+      border-radius: 22px;
+      padding: 22px;
+      font-size: 12px;
+      line-height: 2;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+      color: #fff4fd;
     }
 
-    .photo {
-      width: 180px;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 4px solid #ff8de1;
-      margin-bottom: 15px;
+    .typing-cursor {
+      display: inline-block;
+      animation: blink 0.85s infinite;
     }
 
-    .gengar {
-      width: 120px;
-      margin-bottom: 10px;
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
     }
 
     .letter-photo {
       width: 100%;
       max-width: 260px;
-      border-radius: 20px;
-      border: 4px solid #ff8de1;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-      opacity: 0;
-      transform: translateY(14px) scale(0.96);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      border-radius: 24px;
+      border: 4px solid #f6a0de;
       justify-self: center;
-      background: rgba(255,255,255,0.08);
+      opacity: 0;
+      transform: translateY(24px) scale(0.95);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      box-shadow: 0 0 20px rgba(246, 160, 222, 0.28);
     }
 
     .letter-photo.show {
@@ -137,149 +193,166 @@
       transform: translateY(0) scale(1);
     }
 
-    @media (max-width: 700px) {
-      .letter-wrap {
-        grid-template-columns: 1fr;
-      }
+    .hint {
+      text-align: center;
+      font-size: 11px;
+      line-height: 1.8;
+      color: #ffd7f5;
+      margin-top: 16px;
+    }
 
-      .letter-photo {
-        max-width: 220px;
-      }
+    .runaway {
+      position: relative;
+    }
+
+    @media (max-width: 760px) {
+      h1 { font-size: 24px; }
+      .answers { grid-template-columns: 1fr; }
+      .letter-wrap { grid-template-columns: 1fr; }
+      .message { min-height: 320px; }
+      .photo { width: 180px; height: 180px; }
     }
   </style>
 </head>
 <body>
+  <div class="ghosts">
+    <img class="ghost one" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png" alt="Gengar">
+    <img class="ghost two" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png" alt="Gengar">
+  </div>
 
   <div class="card">
-
-    <!-- SCREEN 1 -->
     <div class="screen active" id="screen1">
-      <!-- ADD HIS PHOTO HERE -->
-      <img src=" Dipper .JPG " class="photo">
-
-      <!-- GENGAR IMAGE -->
-      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png" class="gengar">
-
+      <img src="Dipper%20.JPG" class="photo" alt="Dipper">
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png" class="gengar" alt="Gengar">
       <h1>Hi there, Love 💙</h1>
       <p class="subtitle">A little game before your surprise...</p>
-
-      <button class="primary" onclick="nextScreen(2)">Start 🎮</button>
+      <button class="primary start-btn" id="start-btn">Start 🎮</button>
     </div>
 
-    <!-- QUESTION 1 -->
     <div class="screen" id="screen2">
+      <h1>Question 1</h1>
       <p class="question">Who is the most handsome person in the world?</p>
-      <div class="answers" id="answers1">
-        <button class="secondary runaway" onmouseover="runAway(this)" ontouchstart="runAway(this)">Someone else</button>
-        <button class="primary" onclick="nextScreen(3)">Dipper</button>
-        <button class="secondary runaway" onmouseover="runAway(this)" ontouchstart="runAway(this)">A celebrity</button>
-        <button class="secondary runaway" onmouseover="runAway(this)" ontouchstart="runAway(this)">No idea</button>
+      <div class="answers">
+        <button class="secondary runaway">Some random guy</button>
+        <button class="primary" data-next="3">Dipper</button>
+        <button class="secondary runaway">A celebrity</button>
+        <button class="secondary runaway">No idea</button>
       </div>
     </div>
 
-    <!-- QUESTION 2 -->
     <div class="screen" id="screen3">
-      <p class="question">Who is the most awesome boyfriend?</p>
-      <div class="answers" id="answers2">
-        <button class="secondary runaway" onmouseover="runAway(this)" ontouchstart="runAway(this)">Someone random</button>
-        <button class="primary" onclick="nextScreen(4)">Dipper</button>
-        <button class="secondary runaway" onmouseover="runAway(this)" ontouchstart="runAway(this)">Movie star</button>
-        <button class="secondary runaway" onmouseover="runAway(this)" ontouchstart="runAway(this)">Idk</button>
+      <h1>Question 2</h1>
+      <p class="question">Who is the most awesome boyfriend in the world?</p>
+      <div class="answers">
+        <button class="secondary runaway">Someone random</button>
+        <button class="primary" data-next="4">Dipper</button>
+        <button class="secondary runaway">Movie star</button>
+        <button class="secondary runaway">Idk</button>
       </div>
     </div>
 
-    <!-- FINAL -->
     <div class="screen" id="screen4">
-      <p class="question">Are you ready? 💜</p>
-      <button class="primary" onclick="nextScreen(5)">YES!!!</button>
+      <h1>Final Gate</h1>
+      <p class="question">Are you ready? 💖</p>
+      <button class="primary yes-btn" data-next="5">YES!!!</button>
     </div>
 
-    <!-- LETTER -->
     <div class="screen" id="screen5">
-      <h1>Happy Birthday 💖</h1>
+      <h1>Happy Birthday ✨💖</h1>
       <div class="letter-wrap">
         <div class="message"><span id="typed-letter"></span><span class="typing-cursor">|</span></div>
-        <img src="Happi.jpg" id="letter-photo" class="letter-photo" alt="A special photo for Dipper">
+        <img src="Happi.jpg" id="letter-photo" class="letter-photo" alt="Special photo">
+      </div>
+      <div class="hint">made with love by em bé 💌</div>
+    </div>
+  </div>
+
+  <audio id="bg-music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
-    function nextScreen(n) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('screen' + n).classList.add('active');
-    }
-
-    function wrong() {
-      alert("Wrong answer 😝 try again");
-    }
-
-    function runAway(button) {
-      const x = Math.floor(Math.random() * 120) - 60;
-      const y = Math.floor(Math.random() * 60) - 30;
-      button.style.transform = `translate(${x}px, ${y}px)`;
-    }
-
     const letterText = `Xin chào Quái Vật của emmm, 💗
 
 Chúc mừng sinh nhật tuổi 21 anh yêu nhaaaa 🥳🎂🎆
 Tuổi 21 vẫn đẹp trai nhất luonn, không bàn cãi 😎😌❤️‍🔥
 
-Em bé cảm thấy cực kỳ biết ơnnn luôn vì anh đã có mặt trên thế giới này, đã trở thành một phần không thể thiếu trong cuộc sống của em bé (Guarantee lời nói từ đáyyy lòng đếyyy đừng coá mà "Thoi đi em xạoooo" nhen :)) 🥹). Anh là một điều cực kỳ tuyệt vời và em nghĩ không chỉ là trong cuộc đời của em, mà còn của tất cả mọi người xung quanh anh nữa nè!
+Em bé cảm thấy cực kỳ biết ơnnn luôn vì anh đã có mặt trên thế giới này, đã trở thành một phần không thể thiếu trong cuộc sống của em bé (Guarantee lời nói từ đáyyy lòng 🥹). Anh là một điều cực kỳ tuyệt vời và em nghĩ không chỉ là trong cuộc đời của em, mà còn của tất cả mọi người xung quanh anh nữa nè!
 
 Sinh nhật tuổi 21 em muốn anh iu sẽ có thêm thật nhiềuuuu kỷ niệm đẹp trên chặng đường phía trước của mình, làm được nhiều điều mà anh muốn thực hiện, gặp gỡ nhiều người hơn, học được nhiều bài học quý giá hơn, và thành công thật nhiều nhiều ( mặc dù em biết người iu em quá ưa là siêu nhân ròii, em thêm vào bị thừa á hehee 😛). Em mong rằng anh sẽ có thiệttt là nhiều trải nghiệm và đừng chùn bước trước khó khănn nhé vì em biết anh xã chưa bao giờ ngán ai hehee. Hãy luôn nhớ là anh thật sự rất giỏi, rất đặc biệt, và em rất tự hàooo về anh đóo ( BETTER KEEP THIS IN MIND!)
 
 P/S: Gửi tới Mẹ anh là cô cực kỳ siêu lun vì đã sinh ra và nuôi dưỡng một người tuyệt vời như anh để hôm nay em mới có cơ hội được yêu anh nhiều như vậy 🥰`;
+
+    const music = document.getElementById('bg-music');
+    const typedLetter = document.getElementById('typed-letter');
+    const letterPhoto = document.getElementById('letter-photo');
     let typingStarted = false;
 
-    function typeLetter() {
+    function showScreen(number) {
+      document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+      document.getElementById('screen' + number).classList.add('active');
+
+      if (number === 5) {
+        startTyping();
+        setTimeout(() => {
+          if (letterPhoto) letterPhoto.classList.add('show');
+        }, 700);
+      }
+    }
+
+    function startTyping() {
       if (typingStarted) return;
       typingStarted = true;
-
-      const target = document.getElementById('typed-letter');
       let i = 0;
+      typedLetter.textContent = '';
 
       function typeNext() {
         if (i < letterText.length) {
-          target.textContent += letterText.charAt(i);
-          i++;
-          setTimeout(typeNext, 45);
+          typedLetter.textContent += letterText.charAt(i);
+          i += 1;
+          setTimeout(typeNext, 36);
         }
       }
 
       typeNext();
     }
 
-    const originalNextScreen = nextScreen;
-    nextScreen = function(n) {
-      originalNextScreen(n);
-      if (n === 5) {
-        typeLetter();
-        const photo = document.getElementById('letter-photo');
-        if (photo) {
-          setTimeout(() => photo.classList.add('show'), 250);
-        }
+    function playMusic() {
+      if (music) {
+        music.play().catch(() => {});
       }
     }
-  </script>
 
-  <!-- BACKGROUND MUSIC -->
-  <audio id="bg-music" autoplay loop>
-    <source src="Flashlight - Jessie J (Lyrics).mp3" type="audio/mpeg">
-  </audio>
+    const startBtn = document.getElementById('start-btn');
+    if (startBtn) {
+      startBtn.addEventListener('click', () => {
+        playMusic();
+        showScreen(2);
+      });
+    }
 
-  <script>
-    // ensure music plays after user interaction (browser restriction fix)
-    document.addEventListener("click", function() {
-      const music = document.getElementById("bg-music");
-      music.play();
+    document.querySelectorAll('[data-next]').forEach(button => {
+      button.addEventListener('click', () => {
+        const next = Number(button.getAttribute('data-next'));
+        showScreen(next);
+      });
     });
 
-    function nextScreen(n) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('screen' + n).classList.add('active');
-    }
+    document.querySelectorAll('.runaway').forEach(button => {
+      const moveButton = () => {
+        const x = Math.floor(Math.random() * 140) - 70;
+        const y = Math.floor(Math.random() * 80) - 40;
+        button.style.transform = `translate(${x}px, ${y}px)`;
+      };
 
-    function wrong() {
-      alert("Wrong answer 😝 try again");
-    }
+      button.addEventListener('mouseenter', moveButton);
+      button.addEventListener('touchstart', moveButton);
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        moveButton();
+      });
+    });
   </script>
-
 </body>
 </html>
+
