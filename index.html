@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For  Quang Huy - Dipper Lê 💜</title>
+  <style>
+    .runaway {
+      position: relative;
+    }
+
+    .typing-cursor {
+      display: inline-block;
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #2a003f 0%, #5b0f73 50%, #ffb6e6 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 700px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 3px solid #ff8de1;
+      border-radius: 25px;
+      padding: 25px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      font-size: 42px;
+      color: #ff8de1;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    .question {
+      font-size: 26px;
+      margin-bottom: 20px;
+      color: #ffb6ff;
+    }
+
+    .answers {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    button {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: #ff4fd8;
+      color: white;
+    }
+
+    .secondary {
+      background: #3a0052;
+      color: #ffb6ff;
+      border: 2px solid #ff8de1;
+    }
+
+    .letter-wrap {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      align-items: start;
+      margin-top: 20px;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 18px;
+      line-height: 1.6;
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 15px;
+      white-space: pre-line;
+    }
+
+    .photo {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #ff8de1;
+      margin-bottom: 15px;
+    }
+
+    .gengar {
+      width: 120px;
+      margin-bottom: 10px;
+    }
+
+    .letter-photo {
+      width: 100%;
+      max-width: 260px;
+      border-radius: 20px;
+      border: 4px solid #ff8de1;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      opacity: 0;
+      transform: translateY(14px) scale(0.96);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      justify-self: center;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .letter-photo.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    @media (max-width: 700px) {
+      .letter-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .letter-photo {
+        max-width: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <!-- SCREEN 1 -->
+    <div class="screen active" id="screen1">
+      <!-- ADD HIS PHOTO HERE -->
+      <img src="your-photo.jpg" class="photo">
+
+      <!-- GENGAR IMAGE -->
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png" class="gengar">
+
+      <h1>Hi Dipper 💜</h1>
+      <p class="subtitle">A little game before your surprise...</p>
+
+      <button class="primary" onclick="nextScreen(2)">Start 🎮</button>
+    </div>
+
+    <!-- QUESTION 1 -->
+    <div class="screen" id="screen2">
+      <p class="question">Who is the most handsome person in the world?</p>
+      <div class="answers" id="answers1">
+        <button class="secondary runaway" onmouseover="runAway(this)" ontouchstart="runAway(this)">Someone else</button>
+        <button class="primary" onclick="nextScreen(3)">Dipper</button>
+        <button class="secondary runaway" onmouseover="runAway(this)" ontouchstart="runAway(this)">A celebrity</button>
+        <button class="secondary runaway" onmouseover="runAway(this)" ontouchstart="runAway(this)">No idea</button>
+      </div>
+    </div>
+
+    <!-- QUESTION 2 -->
+    <div class="screen" id="screen3">
+      <p class="question">Who is the most awesome boyfriend?</p>
+      <div class="answers" id="answers2">
+        <button class="secondary runaway" onmouseover="runAway(this)" ontouchstart="runAway(this)">Someone random</button>
+        <button class="primary" onclick="nextScreen(4)">Dipper</button>
+        <button class="secondary runaway" onmouseover="runAway(this)" ontouchstart="runAway(this)">Movie star</button>
+        <button class="secondary runaway" onmouseover="runAway(this)" ontouchstart="runAway(this)">Idk</button>
+      </div>
+    </div>
+
+    <!-- FINAL -->
+    <div class="screen" id="screen4">
+      <p class="question">Are you ready? 💜</p>
+      <button class="primary" onclick="nextScreen(5)">YES!!!</button>
+    </div>
+
+    <!-- LETTER -->
+    <div class="screen" id="screen5">
+      <h1>Happy Birthday 💖</h1>
+      <div class="letter-wrap">
+        <div class="message"><span id="typed-letter"></span><span class="typing-cursor">|</span></div>
+        <img src="letter-photo.jpg" id="letter-photo" class="letter-photo" alt="A special photo for Dipper">
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+
+  <script>
+    function nextScreen(n) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen' + n).classList.add('active');
+    }
+
+    function wrong() {
+      alert("Wrong answer 😝 try again");
+    }
+
+    function runAway(button) {
+      const x = Math.floor(Math.random() * 120) - 60;
+      const y = Math.floor(Math.random() * 60) - 30;
+      button.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    const letterText = `Xin chào Quái Vật của emmm, 💗
+
+Chúc mừng sinh nhật tuổi 21 anh yêu nhaaaa 🥳🎂🎆
+Tuổi 21 vẫn đẹp trai nhất luonn, không bàn cãi 😎😌❤️‍🔥
+
+Em bé cảm thấy cực kỳ biết ơnnn luôn vì anh đã có mặt trên thế giới này, đã trở thành một phần không thể thiếu trong cuộc sống của em bé (Guarantee lời nói từ đáyyy lòng 🥹). Anh là một điều cực kỳ tuyệt vời và em nghĩ không chỉ là trong cuộc đời của em, mà còn của tất cả mọi người xung quanh anh nữa nè!
+
+Sinh nhật tuổi 21 em muốn anh iu sẽ có thêm thật nhiềuuuu kỷ niệm đẹp trên chặng đường phía trước của mình, làm được nhiều điều mà anh muốn thực hiện, gặp gỡ nhiều người hơn, học được nhiều bài học quý giá hơn, và thành công thật nhiều nhiều ( mặc dù em biết người iu em quá ưa là siêu nhân ròii, em thêm vào bị thừa á hehee 😛). Em mong rằng anh sẽ có thiệttt là nhiều trải nghiệm và đừng chùn bước trước khó khănn nhé vì em biết anh xã chưa bao giờ ngán ai hehee. Hãy luôn nhớ là anh thật sự rất giỏi, rất đặc biệt, và em rất tự hàooo về anh đóo ( BETTER KEEP THIS IN MIND!)
+
+P/S: Gửi tới Mẹ anh là cô cực kỳ siêu lun vì đã sinh ra và nuôi dưỡng một người tuyệt vời như anh để hôm nay em mới có cơ hội được yêu anh nhiều như vậy 🥰`;
+    let typingStarted = false;
+
+    function typeLetter() {
+      if (typingStarted) return;
+      typingStarted = true;
+
+      const target = document.getElementById('typed-letter');
+      let i = 0;
+
+      function typeNext() {
+        if (i < letterText.length) {
+          target.textContent += letterText.charAt(i);
+          i++;
+          setTimeout(typeNext, 45);
+        }
+      }
+
+      typeNext();
+    }
+
+    const originalNextScreen = nextScreen;
+    nextScreen = function(n) {
+      originalNextScreen(n);
+      if (n === 5) {
+        typeLetter();
+        const photo = document.getElementById('letter-photo');
+        if (photo) {
+          setTimeout(() => photo.classList.add('show'), 250);
+        }
+      }
+    }
+  </script>
+
+  <!-- BACKGROUND MUSIC -->
+  <audio id="bg-music" autoplay loop>
+    <source src="your-music.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // ensure music plays after user interaction (browser restriction fix)
+    document.addEventListener("click", function() {
+      const music = document.getElementById("bg-music");
+      music.play();
+    });
+
+    function nextScreen(n) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen' + n).classList.add('active');
+    }
+
+    function wrong() {
+      alert("Wrong answer 😝 try again");
+    }
+  </script>
+
+</body>
+</html>
